@@ -18,6 +18,10 @@ body {
     font-weight: 400;
 }
 
+main {
+    margin-bottom: 2rem;
+}
+
 /* Custom */
 .text-frog-eye {
     color: var(--frog-eye-color);
