@@ -1,0 +1,43 @@
+<head>
+    <link rel="stylesheet" href="/public/css/common.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="/public/vendor/bootstrap-5.3.3-dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/public/img/favicon.svg">
+
+    <!-- Jquery -->
+    <script src="/public/vendor/jquery-3.7.1.min/jquery-3.7.1.min.js"></script>
+
+    <!-- Ambiance -->
+    <link rel="stylesheet" href="/public/vendor/jquery.ambiance/jquery.ambiance.css">
+    <script src="/public/vendor/jquery.ambiance/jquery.ambiance.js"></script>
+
+    <!-- Loading Overlay -->
+    <script src="/public/vendor/gasparesganga-jquery-loading-overlay@2.1.7/loadingoverlay.min.js"></script>
+
+    <script>
+        function loading(mode, el = null) {
+            if (mode == 1) {
+                $.LoadingOverlay("show");
+            }
+            else if (mode == 0) {
+                $.LoadingOverlay("hide");
+            }
+            else if (mode == 2) {
+                $(el).prepend('<div class="spinner-border"></div>').attr('disabled', true);
+            } else if (mode == 20) {
+                setTimeout(function () {
+                    $(el).removeAttr('disabled');
+                    $(el).find('.spinner-border').remove();
+                }, 500);
+            } else if (mode == 3) {
+                $(el).append(' <div class="spinner-border"></div>');
+            } else if (mode == 30) {
+                $(el).find('.spinner-border').remove();
+            }
+        }
+    </script>
+</head>
