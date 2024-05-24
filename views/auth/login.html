@@ -1,0 +1,28 @@
+<head>
+    <title>Войти</title>
+    <link rel="stylesheet" href="/public/css/auth.css">
+</head>
+<body>
+    <main>
+        <div class="login" id="login">
+            <div id="login-error"></div>
+            <h1 class="mb-4 text-center fs-3">Вход</h1>
+            <form>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Почта</label>
+                    <input type="text" class="form-control form-control-custom" id="email" aria-describedby="emailHelp" name="email">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Пароль</label>
+                    <input type="password" class="form-control form-control-custom" id="password" name="password">
+                </div>
+                <button type="submit" class="btn btn-primary mt-2" id="login-btn">Отправить</button>
+            </form>
+            <div class="my-3">
+                <span>У вас нет аккаунта?</span>
+                <a class="text-decoration-none" href="/auth/register">Зарегистрироваться</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
