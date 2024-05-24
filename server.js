@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser')
 const path = require('path')
 const expressLayouts = require('express-ejs-layouts')
 require("dotenv").config({path: "config/.env"})
-const index = require('./routes/index')
+const index = require('./routes/renderRoute')
 
 app.set('views', path.join(__dirname, 'views'))
 app.engine('html', require('ejs').renderFile)
