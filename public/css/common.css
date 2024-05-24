@@ -18,18 +18,3 @@ main {
 .text-main {
     color: var(--main-green);
 }
-
-
-
-/* Header */
-header {
-    margin-bottom: 2rem;
-}
-
-.header__logo img{
-    width: 50px;
-}
-
-
-
-/* Footer */

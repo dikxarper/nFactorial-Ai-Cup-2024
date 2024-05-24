@@ -1,0 +1,24 @@
+/* Header */
+header {
+    margin-bottom: 2rem;
+}
+
+.header__logo img{
+    width: 50px;
+}
+
+.header-btn {
+    color: var(--bs-body-color);
+    border: 1px solid gray;
+    padding: 0.5rem;
+    border-radius: .3rem;
+}
+
+.header-btn:hover {
+    color: var(--bs-secondary-color);
+}
+
+
+
+
+/* Footer */
