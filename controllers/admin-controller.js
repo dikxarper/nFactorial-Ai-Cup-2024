@@ -38,11 +38,9 @@ class AdminController {
     }
     async createCategory(req, res) {
         try {
-            const categoryName = req.body.categoryName
+            const name = req.body.categoryName
 
-            const newCategory = new CategoryModel({
-                categoryName
-            })
+            const newCategory = new CategoryModel({name})
             await newCategory.save()
 
             res.status(200).json({ message: "Category created successfully!" })
@@ -53,43 +51,48 @@ class AdminController {
     async updateCategory(req, res) {
         try {
             const categoryId = req.params.id
-            const categoryName = req.body.categoryName
+            const newCategoryName = req.body.categoryName
 
-            const category = await CategoryModel.findByIdAndUpdate(categoryId, {
-                categoryName
-            })
-            await category.save()
+            const category = await CategoryModel.findByIdAndUpdate(categoryId, { name: newCategoryName }, { new: true })
 
-            res.status(200).json({message: "Category updated!"})
+            const oldCategoryName = category.name
+            await ProductModel.updateMany({ category: oldCategoryName }, { category: newCategoryName })
+
+            res.status(200).json({ message: "Category updated!" })
         } catch (err) {
             res.status(500).json({ message: "Internal server error" })
         }
     }
-    async deleteCategory(req, res) { 
+    async deleteCategory(req, res) {
         try {
             const categoryId = req.params.id
 
-            const deletedCategory = await CategoryModel.findByIdAndDelete(categoryId)
+            const category = await CategoryModel.findById(categoryId)
 
-            if(!deletedCategory) {
-                return res.status(404).json({message: "Category not found"})
+            if (!category) {
+                return res.status(404).json({ message: "Category not found" })
             }
+            const categoryName = category.categoryName
 
-            res.status(200).json({message: "Category deleted successfully!"})
+            await ProductModel.deleteMany({ category: categoryName })
+
+            await CategoryModel.findByIdAndDelete(categoryId)
+
+            res.status(200).json({ message: "Category and associated products deleted successfully!" })
         } catch (err) {
-            res.status(500).json({message: "Internal server error"})
+            res.status(500).json({ message: "Internal server error" })
         }
     }
-    async getProductsByCategory(req, res) { 
+    async getProductsByCategory(req, res) {
         try {
             const categoryId = req.params.id
             const category = await CategoryModel.findById(categoryId)
             const categoryName = category.name
-            const products = await ProductModel.find({category: categoryName})
+            const products = await ProductModel.find({ category: categoryName })
 
             res.status(200).json(products)
         } catch (err) {
-            res.status(500).json({message: "Internal server error"})
+            res.status(500).json({ message: "Internal server error" })
         }
     }
     async getProductsByCompany(req, res) {
@@ -98,9 +101,9 @@ class AdminController {
             const products = await ProductModel.findById(companyId)
 
             res.status(200).json(products)
-            
+
         } catch (err) {
-            res.status(500).json({message: "Internal server error"})
+            res.status(500).json({ message: "Internal server error" })
         }
     }
 }
