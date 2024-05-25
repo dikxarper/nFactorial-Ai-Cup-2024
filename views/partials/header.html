@@ -1,63 +1,38 @@
-<% if (role=='user' ) { %>
-<header class="px-3">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand header__logo" href="/">
+<% if (pageName.startsWith('admin')) { %>
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px; height: 100vh;">
+        <a href="/admin/users" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <span class="fs-4">Меню</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a href="/admin/users" class="nav-link text-white hstack gap-3 <%= pageName == 'admin-users' ? 'active' : '' %>">
+                    <span class="material-symbols-rounded">person</span>Пользователи
+                </a>
+            </li>
+            <li>
+                <a href="/admin/products" class="nav-link text-white hstack gap-3 <%= pageName == 'admin-products' ? 'active' : '' %>">
+                    <span class="material-symbols-rounded">inventory_2</span>Товары
+                </a>
+            </li>
+            <li>
+                <a href="/admin/categories" class="nav-link text-white hstack gap-3 <%= pageName == 'admin-categories' ? 'active' : '' %>">
+                    <span class="material-symbols-rounded">category</span>Категории
+                </a>
+            </li>
+        </ul>
+        <hr>
+        <a class="hstack gap-2 text-decoration-none text-white" href="/auth/login">
+            <span class="material-symbols-rounded">logout</span>Выйти
+        </a>
+    </div>
+    <% } else { %>
+    <header class="px-3 py-2">
+        <div class="hstack gap-5">
+            <a class="header__logo" href="/">
                 <img src="/public/img/logo.png" alt="">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Главная страница</a>
-                    </li>
-                </ul>
-                <div class="d-flex align-items-center gap-3">
-                    <a class="header-btn text-decoration-none hstack gap-2" href="/auth/login" id="login-btn">
-                        <span class="material-symbols-rounded">login</span>Войти
-                    </a>
-
-                    <div class="btn-group gap-3">
-                        <a class="header-btn text-decoration-none hstack gap-2" href="/profile" id="profile-btn">
-                            <span class="material-symbols-rounded">person</span>Профиль
-                        </a>
-                        <a class="header-btn text-decoration-none hstack gap-2" href="/auth/login" id="logout-btn">
-                            <span class="material-symbols-rounded">logout</span>Выйти
-                        </a>
-                    </div>
-                </div>
-            </div>
+            <div class="fw-medium fs-5"><%= pageName == 'doc-verify' ? 'Инструмент сопоставления фотографии с документом удостоверения личности' : 'Система' %></div>
         </div>
-    </nav>
-</header>
-<% } else { %>
-<div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px; height: 100vh;">
-    <a href="/admin/users" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-        <span class="fs-4">Меню</span>
-    </a>
-    <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item">
-            <a href="/admin/users" class="nav-link text-white hstack gap-3 <%= pageName == 'admin-users' ? 'active' : '' %>">
-                <span class="material-symbols-rounded">person</span>Пользователи
-            </a>
-        </li>
-        <li>
-            <a href="/admin/products" class="nav-link text-white hstack gap-3 <%= pageName == 'admin-products' ? 'active' : '' %>">
-                <span class="material-symbols-rounded">inventory_2</span>Товары
-            </a>
-        </li>
-        <li>
-            <a href="/admin/categories" class="nav-link text-white hstack gap-3 <%= pageName == 'admin-categories' ? 'active' : '' %>">
-                <span class="material-symbols-rounded">category</span>Категории
-            </a>
-        </li>
-    </ul>
-    <hr>
-    <a class="hstack gap-2 text-decoration-none text-white" href="/auth/login">
-        <span class="material-symbols-rounded">logout</span>Выйти
-    </a>
-</div>
-<% } %>
+    </header>
+    <% } %>

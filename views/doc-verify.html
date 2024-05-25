@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .swag__element__block {
+            border: 2px solid rgb(51, 164, 51);
+        }
+
+        .swag__element__shortTitle {
+            width: 5rem;
+            background-color: rgb(51, 164, 51);
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="product__category mb-5">
+            <div class="container">
+                <a class="hstack text-decoration-none text-dark" onclick="history.back()" style="cursor: pointer;">
+                    <span class="material-symbols-rounded">arrow_back_ios</span>Вернуться назад
+                </a>
+            </div>
+        </div>
+
+        <div class="intro my-5">
+            <div class="container">
+                <div class="intro__body">
+                    <h4 class="swag__title">Система верификации удостоверения личности гражданина РК</h4>
+                </div>
+            </div>
+        </div>
+        
+        <div class="imgput mb-5">
+            <div class="container">
+                <div class="imgput__body">
+                    <p></p>
+                    <div class="imgput__inner p-4 border rounded-3">
+                        <div class="imgput__element mb-5 hstack justify-content-between" id="imgput-element-2">
+                            <div>
+                                <div class="hstack gap-4">
+                                    <div class="fw-bold hstack gap-2">
+                                        <span class="material-symbols-rounded fs-2">demography</span>Удостоверение личности
+                                        <a class="custom-warning-icon" style="margin-top: 6px;" tabindex="0" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-content="Все методы используют документ удостоверения личности. Поэтому он является обязательным! Не использовать документы с KASPI и EGOV"><span class="material-symbols-rounded text-warning">error</span></a>
+                                    </div>
+                                    <div>
+                                        <label for="file-doc">
+                                            <div class="btn btn-success" onclick="addImage(this)">Загрузить</div>
+                                        </label>
+                                        <input style="display: none;" type="file" class="form-control" id="file-doc" accept="image/png, image/jpeg, image/jpg">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hstack gap-3">
+                                <div class="border-bottom hstack gap-2" style="width: 400px;">
+                                    <span class="material-symbols-rounded">draft</span>
+                                    <span id="file-name">Загрузите файл</span>
+                                </div>
+                                <div class="bg-red p-1 rounded-1" style="cursor: pointer;" onclick="deleteImage(this)">
+                                    <span class="material-symbols-rounded">delete</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="imgput__element hstack justify-content-between" id="imgput-element-1">
+                            <div>
+                                <div class="hstack gap-4">
+                                    <div class="fw-bold hstack gap-2">
+                                        <span class="material-symbols-rounded fs-2">person_book</span>Фотография вашего лица</div>
+                                    <div>
+                                        <label for="file-img">
+                                            <div class="btn btn-success" onclick="addImage(this)">Загрузить</div>
+                                        </label>
+                                        <input style="display: none;" type="file" class="form-control" id="file-img" accept="image/png, image/jpeg, image/jpg" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hstack gap-3">
+                                <div class="border-bottom hstack gap-2" style="width: 400px;">
+                                    <span class="material-symbols-rounded">draft</span>
+                                    <span id="file-name">Загрузите файл</span>
+                                </div>
+                                <div class="bg-red p-1 rounded-1" style="cursor: pointer;" onclick="deleteImage(this)">
+                                    <span class="material-symbols-rounded">delete</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swag mb-5">
+            <div class="container">
+                <div class="swag__body">
+                    <div class="swag__inner">
+                        <div class="swag__element hstack gap-4 mb-5" id="swag-bio">
+                            <div class="swag__element__block w-100 rounded-3 p-3">
+                                <div class="swag__element__inner d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center gap-4">
+                                        <div class="swag__element__shortTitle d-flex justify-content-center align-items-center rounded-1">
+                                            <span class="fs-3 fw-semibold font-monospace">BIO</span>
+                                        </div>
+                                        <div class="swag__element__title fw-medium">Biometric check-up</div>
+                                        <div class="swag__element__description fw-light fst-italic">Проверка соответствию с лицом владельца</div>
+                                    </div>
+                                    <div class="inner-right hstack gap-4">
+                                        <span class="material-symbols-rounded text-warning">person_book</span>
+                                        <span class="material-symbols-rounded text-warning">demography</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="spinner-border text-success" id="swagger-spinner" role="status" style="display: none;">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-end">
+                    <button class="btn btn-success" id="submit-btn" onclick="submitMethods()">Проверить</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/public/js/faceMatchDetection.js"></script>
+    <script src="/public/vendor/axios/axios.min.js"></script>
+    <script src="/public/vendor/faceapi/face-api.js"></script>
+
+    <script>
+        $(() => {
+            checkImages();
+            placeImg();
+
+            // Add change event listener to file inputs to trigger the checkImages function
+            $('#file-img, #file-doc').on('change', checkImages);
+        })  
+
+        async function submitMethods() {
+            const spinnerSelector = $("#swagger-spinner");
+
+            spinnerSelector.show();
+            const promise = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    const faceMatchDetectionResult = faceMatchDetection(getImgId('img'), getImgId('doc'));
+                    resolve(faceMatchDetectionResult);
+                }, 2000);
+            });
+
+            promise.then(faceMatchDetectionResult => {
+                spinnerSelector.hide();
+                if (faceMatchDetectionResult.status == 'success') {
+                    alert("all good");
+                } else {
+                    if (faceMatchDetectionResult.errorType == 'no-face') {
+                        alert('На одном или обоих изображениях лица не обнаружены');
+                    } else if (faceMatchDetectionResult.errorType == 'no-dist') {
+                        alerT('Фотография не соответствует фото из УД');
+                    }
+                }
+            });
+        }
+
+        function checkImages() {
+            console.log(getImgInput('img'))
+            if (getImgInput('img') && getImgInput('doc')) {
+                $('#submit-btn').prop('disabled', false);
+            } else {
+                $('#submit-btn').prop('disabled', true);
+            }
+        }
+
+        function addImage(fieldSelector) {
+            const imgputElement = $(fieldSelector).closest('.imgput__element');
+            const fileInput = imgputElement.find('input[type="file"]');
+            const fileNameSpan = imgputElement.find('#file-name');
+
+            fileInput.on('change', function() {
+                $('.form-valid').remove();
+                fileNameSpan.text(this.files[0].name)
+                if (imgputElement.prop('id') == 'imgput-element-1') {
+                    localStorage.setItem('faceName', this.files[0].name);
+                } else {
+                    localStorage.setItem('docName', this.files[0].name);
+                }
+            })
+        }
+
+        function deleteImage(fieldSelector) {
+            const imgputElement = $(fieldSelector).closest('.imgput__element');
+            const fileInput = imgputElement.find('input[type="file"]');
+            const fileNameSpan = imgputElement.find('#file-name');
+
+            if (imgputElement.prop('id') == 'imgput-element-1') {
+                localStorage.removeItem('faceName');
+            } else {
+                localStorage.removeItem('docName');
+            }
+
+            fileNameSpan.text('Загрузите файл');
+            fileInput.val('');
+
+            checkImages();
+        }
+
+        function placeImg() {
+            const imgputElement = $('.imgput__element');
+            
+
+            imgputElement.each(function(index, element) {
+                const $element = $(element);
+
+                const fileInput = $element.find('input[type="file"]');
+                const fileNameSpan = $element.find('#file-name');
+
+                console.log(fileNameSpan)
+
+                const elementId = $element.attr('id');
+
+                if (elementId === 'imgput-element-1') {
+                    if (localStorage.getItem('faceName') !== null) {
+                        fileNameSpan.text(localStorage.getItem('faceName'));
+                    } else {
+                        fileNameSpan.text('Загрузите файл');
+                    }
+                } else {
+                    if (localStorage.getItem('docName') !== null) {
+                        fileNameSpan.text(localStorage.getItem('docName'));
+                    } else {
+                        fileNameSpan.text('Загрузите файл');
+                    }
+                }
+                
+                fileInput.on('change', function() {
+                    if (elementId === 'imgput-element-1') {
+                        fileNameSpan.text(localStorage.getItem('faceName'));
+                    } else {
+                        fileNameSpan.text(localStorage.getItem('docName'));
+                    }
+                });
+            });
+        }
+
+        function getImgInput(fieldSelector) {
+            if (fieldSelector == 'img') {
+                return $('#file-img')[0].files[0];
+            } else if (fieldSelector == 'doc') {
+                return $('#file-doc')[0].files[0];
+            }
+        }
+
+        function getImgId(fieldSelector) {
+            if (fieldSelector == 'img') {
+                return $('#file-img').attr('id');
+            } else if (fieldSelector == 'doc') {
+                return $('#file-doc').attr('id');
+            }
+        }
+    </script>
+
+</body>
+</html>
