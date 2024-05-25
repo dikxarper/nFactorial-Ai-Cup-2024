@@ -9,7 +9,9 @@ const company = new mongoose.Schema({
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Source'
-        }]
+        }],
+    verificationRedirect: {type: String},
+    telegramToken: {type: String}
 }, {timestamps: true})
 
 const Company = mongoose.model('Company', company)

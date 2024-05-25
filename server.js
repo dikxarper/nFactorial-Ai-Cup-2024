@@ -35,6 +35,8 @@ app.use((req, res, next) => {
     res.status(500).render('errors/error-500')
 })
 
+const Company = require('./models/company-model')
+
 bot.setMyCommands([
     {
         command: '/start',
@@ -43,6 +45,10 @@ bot.setMyCommands([
     {
         command: '/info',
         description: 'Information about project'
+    },
+    {
+        command: '/getchatbot',
+        description: 'Get chat bot'
     },
     {
         command: '/link',
@@ -74,6 +80,20 @@ bot.on('message', async (msg) => {
             'aliquip ex ea commodo consequat. Duis aute irure' +
             ' dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, ' +
             'sunt in culpa qui officia deserunt mollit anim id est laborum.')
+    }
+    if (text === '/getchatbot') {
+        await bot.sendMessage(chatId, 'Отправьте токен')
+        bot.once('message', async (msg) => {
+            const token = msg.text.trim()
+
+            try {
+                const company = await Company.find({telegramToken: token})
+                if (!company) return bot.sendMessage(chatId, "Токен не найден")
+                return bot.sendMessage(chatId, `Добро пожаловать ${msg.from.first_name}!`)
+            } catch (err) {
+                return bot.sendMessage(chatId, "Ошибка")
+            }
+        })
     }
 })
 

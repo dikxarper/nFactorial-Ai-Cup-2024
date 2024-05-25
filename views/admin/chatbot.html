@@ -1,0 +1,388 @@
+<head>
+    <title>Main page</title>
+    <link rel="stylesheet" href="/public/css/style.css">
+
+    <link rel="stylesheet" href="https://webapi-s1.s3.amazonaws.com/bower_components/codemirror/lib/codemirror.css">
+    <link rel="stylesheet"
+        href="https://webapi-s1.s3.amazonaws.com/bower_components/codemirror/addon/display/fullscreen.css">
+    <link rel="stylesheet" href="https://webapi-s1.s3.amazonaws.com/bower_components/codemirror/theme/night.css">
+    <script src="https://webapi-s1.s3.amazonaws.com/bower_components/codemirror/lib/codemirror.js"></script>
+    <script src="https://webapi-s1.s3.amazonaws.com/bower_components/codemirror/mode/javascript/javascript.js"></script>
+    <script src="https://webapi-s1.s3.amazonaws.com/bower_components/codemirror/addon/display/fullscreen.js"></script>
+
+</head>
+
+<body>
+    <main style="margin-left: 350px;">
+        <h1 class="mt-5">Конфигурация</h1>
+        <div id="import" class="pt-3">
+
+            <span>Импортируйте следующий Javascript-код в нижнюю часть вашего веб-сайта, чтобы начать обслуживать
+                пользователей</span>
+            <!-- code mirror -->
+            <form>
+                <textarea id="code" name="code" rows="5" style="display: none;">&lt;script type="text/javascript" src="https://s2.webapi.ai/chat-widget/uniq-chat.js"&gt;&lt;/script&gt;
+    
+                                     
+                                </textarea>
+                <div class="CodeMirror cm-s-night">
+                    <div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 4px; left: 34px;">
+                        <textarea autocorrect="off" autocapitalize="off" spellcheck="false"
+                            style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"
+                            tabindex="0"></textarea>
+                    </div>
+                    <div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true" style="bottom: 0px;">
+                        <div style="min-width: 1px; height: 0px;"></div>
+                    </div>
+                    <div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true"
+                        style="display: block; right: 0px; left: 30px;">
+                        <div style="height: 100%; min-height: 1px; width: 735px;"></div>
+                    </div>
+                    <div class="CodeMirror-scrollbar-filler" cm-not-content="true" style="height: 17px; width: 17px;">
+                    </div>
+                    <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
+                    <div class="CodeMirror-scroll" tabindex="-1">
+                        <div class="CodeMirror-sizer"
+                            style="margin-left: 30px; margin-bottom: 0px; border-right-width: 50px; min-height: 300px; min-width: 735.462px; padding-right: 0px; padding-bottom: 0px;">
+                            <div style="position: relative; top: 0px;">
+                                <div class="CodeMirror-lines" role="presentation">
+                                    <div role="presentation" style="position: relative; outline: none;">
+                                        <div class="CodeMirror-measure">
+                                            <pre class="CodeMirror-line-like"><span>xxxxxxxxxx</span></pre>
+                                        </div>
+                                        <div class="CodeMirror-measure"></div>
+                                        <div style="position: relative; z-index: 1;"></div>
+                                        <div class="CodeMirror-cursors">
+                                            <div class="CodeMirror-cursor" style="left: 4px; top: 0px; height: 21.6px;">
+                                                &nbsp;</div>
+                                        </div>
+                                        <div class="CodeMirror-code" role="presentation" style="">
+                                            <div style="position: relative;">
+                                                <div class="CodeMirror-gutter-wrapper" style="left: -30px;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt"
+                                                        style="left: 0px; width: 21px;">1</div>
+                                                </div>
+                                                <pre class=" CodeMirror-line "
+                                                    role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">&lt;</span><span class="cm-variable">script</span> <span class="cm-variable">type</span><span class="cm-operator">=</span><span class="cm-string">"text/javascript"</span> <span class="cm-variable">src</span><span class="cm-operator">=</span><span class="cm-string">"https://s2.webapi.ai/chat-widget/uniq-chat.js"</span><span class="cm-operator">&gt;&lt;</span><span class="cm-string-2">/script&gt;</span></span></pre>
+                                            </div>
+                                            <div style="position: relative;">
+                                                <div class="CodeMirror-gutter-wrapper" style="left: -30px;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt"
+                                                        style="left: 0px; width: 21px;">2</div>
+                                                </div>
+                                                <pre class=" CodeMirror-line "
+                                                    role="presentation"><span role="presentation" style="padding-right: 0.1px;">  </span></pre>
+                                            </div>
+                                            <div style="position: relative;">
+                                                <div class="CodeMirror-gutter-wrapper" style="left: -30px;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt"
+                                                        style="left: 0px; width: 21px;">3</div>
+                                                </div>
+                                                <pre class=" CodeMirror-line "
+                                                    role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">&lt;</span><span class="cm-variable">script</span><span class="cm-operator">&gt;</span></span></pre>
+                                            </div>
+                                            <div style="position: relative;">
+                                                <div class="CodeMirror-gutter-wrapper" style="left: -30px;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt"
+                                                        style="left: 0px; width: 21px;">4</div>
+                                                </div>
+                                                <pre class=" CodeMirror-line "
+                                                    role="presentation"><span role="presentation" style="padding-right: 0.1px;">  <span class="cm-keyword">var</span> <span class="cm-variable">ailabs_user_info</span> <span class="cm-operator">=</span> {</span></pre>
+                                            </div>
+                                            <div style="position: relative;">
+                                                <div class="CodeMirror-gutter-wrapper" style="left: -30px;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt"
+                                                        style="left: 0px; width: 21px;">5</div>
+                                                </div>
+                                                <pre class=" CodeMirror-line "
+                                                    role="presentation"><span role="presentation" class="cm-tab-wrap-hack" style="padding-right: 0.1px;">    <span class="cm-string cm-property">'client'</span>:<span class="cm-string">'c1416'</span>,   <span class="cm-tab" role="presentation" cm-text="	">    </span></span></pre>
+                                            </div>
+                                            <div style="position: relative;">
+                                                <div class="CodeMirror-gutter-wrapper" style="left: -30px;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt"
+                                                        style="left: 0px; width: 21px;">6</div>
+                                                </div>
+                                                <pre class=" CodeMirror-line "
+                                                    role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-string cm-property">'welcome_message'</span>:<span class="cm-string">'Welcome to the chat 👋'</span>,</span></pre>
+                                            </div>
+                                            <div style="position: relative;">
+                                                <div class="CodeMirror-gutter-wrapper" style="left: -30px;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt"
+                                                        style="left: 0px; width: 21px;">7</div>
+                                                </div>
+                                                <pre class=" CodeMirror-line "
+                                                    role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-string cm-property">'popup_mode'</span>:<span class="cm-number">0</span>, <span class="cm-comment">//0-off, 1-auto popup after 10 seconds for new users</span></span></pre>
+                                            </div>
+                                            <div style="position: relative;">
+                                                <div class="CodeMirror-gutter-wrapper" style="left: -30px;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt"
+                                                        style="left: 0px; width: 21px;">8</div>
+                                                </div>
+                                                <pre class=" CodeMirror-line "
+                                                    role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-string cm-property">'position'</span>:<span class="cm-number">1</span>, <span class="cm-comment">//1-bottom right, 2-bottom left</span></span></pre>
+                                            </div>
+                                            <div style="position: relative;">
+                                                <div class="CodeMirror-gutter-wrapper" style="left: -30px;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt"
+                                                        style="left: 0px; width: 21px;">9</div>
+                                                </div>
+                                                <pre class=" CodeMirror-line "
+                                                    role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-string cm-property">'input_comment'</span>: <span class="cm-string">'Type your message or /start to restart'</span></span></pre>
+                                            </div>
+                                            <div style="position: relative;">
+                                                <div class="CodeMirror-gutter-wrapper" style="left: -30px;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt"
+                                                        style="left: 0px; width: 21px;">10</div>
+                                                </div>
+                                                <pre class=" CodeMirror-line "
+                                                    role="presentation"><span role="presentation" style="padding-right: 0.1px;">  }; </span></pre>
+                                            </div>
+                                            <div style="position: relative;">
+                                                <div class="CodeMirror-gutter-wrapper" style="left: -30px;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt"
+                                                        style="left: 0px; width: 21px;">11</div>
+                                                </div>
+                                                <pre class=" CodeMirror-line "
+                                                    role="presentation"><span role="presentation" style="padding-right: 0.1px;">  <span class="cm-variable">AILabsChatStart</span>();</span></pre>
+                                            </div>
+                                            <div style="position: relative;">
+                                                <div class="CodeMirror-gutter-wrapper" style="left: -30px;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt"
+                                                        style="left: 0px; width: 21px;">12</div>
+                                                </div>
+                                                <pre class=" CodeMirror-line "
+                                                    role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">&lt;</span><span class="cm-string-2">/script&gt;</span></span></pre>
+                                            </div>
+                                            <div style="position: relative;">
+                                                <div class="CodeMirror-gutter-wrapper" style="left: -30px;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt"
+                                                        style="left: 0px; width: 21px;">13</div>
+                                                </div>
+                                                <pre class=" CodeMirror-line "
+                                                    role="presentation"><span role="presentation" style="padding-right: 0.1px;">                              </span></pre>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            style="position: absolute; height: 50px; width: 1px; border-bottom: 0px solid transparent; top: 289px;">
+                        </div>
+                        <div class="CodeMirror-gutters" style="height: 339px;">
+                            <div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!--endof codemirror -->
+
+            <!--<fieldset class="form-group">
+            <legend><span>Settings</span></legend>
+            Select theme&nbsp;
+            <button class="btn btn-sm btn-primary">Blue</button>
+            <button class="btn btn-sm btn-danger">Red (selected)</button>
+            <button class="btn btn-sm btn-info">Purple</button>
+            </fieldset> -->
+            <br><br>
+        </div>
+        <h1 class="mt-5">Документы &nbsp; <button class="btn btn-primary" onclick="showCreateSourceModal()">+ Добавить
+                документ</button></h1>
+        <div class="container mt-5">
+
+        </div>
+
+        <div id="sources" class="container mt-5 bg-white rounded p-3">
+            <div class="source">
+                <h2 data-bs-toggle="collapse" data-bs-target="#source-0" style="cursor: pointer;">Тест</h2>
+                <div id="source-0" class="collapse">
+                    <label for="" class="form-label">URL</label>
+                    <input type="text" class="form-control" value="https://test.com" disabled>
+                    <br>
+                    <label for="" class="form-label">Content</label>
+                    <textarea name="" id="" rows="6" class="form-control"></textarea>
+                    <br>
+                    <button class="btn btn-success px-5" onclick="showEditSourceModal()">Edit</button>
+                    <button class="btn btn-danger" style="float: right;"
+                        onclick="showDeleteSourceModal()">Delete</button>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <div class="modal fade" id="create_source-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Create Source</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form autocomplete="off">
+                        <div class="mb-3 mt-3">
+                            <label class="mb-2">Title</label>
+                            <input type="text" class="form-control" id="title" placeholder="Source title">
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label class="mb-2">URL</label>
+                            <div class="d-flex gap-3">
+                                <input class="form-control" id="source_url" placeholder="https://" />
+                                <button class="btn btn-dark" type="button" onclick="extractFromSource()">Extract</button>
+                            </div>
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label class="mb-2">Content</label>
+                            <textarea class="form-control" id="content" rows="6" placeholder="Content"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="create_source_btn" class="btn btn-primary px-md-4"
+                        onclick="createSource()">Create</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="delete_source-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure? You won't be able to revert this
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="delete_participant_btn" class="btn btn-danger px-md-4"
+                        onclick="deleteSource()">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        var globalSourceId;
+        var globalSources;
+        $(()=>{
+            getSource()
+        })
+        function showCreateSourceModal() {
+            $('#create_source-modal').modal('show');
+        }
+
+        function showDeleteSourceModal(source_index) {
+            $('#delete_source-modal').modal('show');
+            globalSourceId = globalSources[source_index.split('-')[1]].source_id;
+        }
+
+        function showEditSourceModal(source_index) {
+            $('#edit_source-modal').modal('show');
+            globalSourceId = globalSources[source_index.split('-')[1]].source_id;
+
+        }
+
+        function createSource() {
+            var title = $('#title').val();
+            var url = $('#source_url').val();
+            var content = $('#content').val();
+
+            // Validate the inputs
+            if (!title || !url || !content) {
+                alert('Please fill in all the required fields.');
+                return;
+            }
+
+       
+            var data = {
+                title: title,
+                url: url,
+                content: content
+            };
+
+
+            $.ajax({
+                type: 'POST',
+                url: '/api/source/create',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                success: function (response) {
+                    // Handle the successful response from the server
+                    console.log('Source created successfully:', response);
+                
+                    $('#create_source-modal').modal('hide');
+                },
+                error: function (xhr, status, error) {
+                    // Handle the error case
+                    console.error('Error creating source:', error);
+                    alert('An error occurred while creating the source. Please try again.');
+                }
+            });
+        }
+
+        function getSource(){
+            $.ajax({
+                type: 'GET',
+                url: '/api/source/',
+                success: function (response) {
+                    // Handle the successful response from the server
+                    console.log('Source created successfully:', response);
+                
+                 
+                },
+                error: function (xhr, status, error) {
+                    // Handle the error case
+                    console.error('Error creating source:', error);
+                    alert('An error occurred while creating the source. Please try again.');
+                }
+            });
+        }
+
+        function deleteSource() {
+            $.ajax({
+                type: 'DELETE',
+                url: '/delete-source/' + sourceId,
+                success: function (response) {
+
+
+                    $('#source-' + sourceId).remove();
+                },
+                error: function (xhr, status, error) {
+                    // Handle the error case
+                    console.error('Error deleting source:', error);
+                    alert('An error occurred while deleting the source. Please try again.');
+                }
+            });
+        }
+
+        function extractFromSource() {
+            loading(0)
+            var source = $('#source_url').val().trim();
+            if (!source) {
+                $.ambiance({ message: "Source URL value must be valid URL address", type: "error", fade: true, timeout: 5 });
+                return;
+            }
+            if (!source.startsWith('http')) source = 'https://' + source;
+            
+            $.ajax({
+                url: 'https://accounts.webapi.ai/services/upload_file',
+                method: 'POST',
+                data: { 'action': 'urlExtract', 'url': source },
+                dataType: 'json',
+                success: function (r) {
+                    if (r.content) $('#content').val(r.content);
+                    else $.ambiance({ message: "could not extract content from the source URL address", type: "error", fade: true, timeout: 5 });
+                }
+            });
+        }
+
+    </script>
+</body>
+
+</html>

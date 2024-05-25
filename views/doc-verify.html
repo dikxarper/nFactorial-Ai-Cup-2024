@@ -43,7 +43,6 @@
                                 <div class="hstack gap-4">
                                     <div class="fw-bold hstack gap-2">
                                         <span class="material-symbols-rounded fs-2">demography</span>Удостоверение личности
-                                        <a class="custom-warning-icon" style="margin-top: 6px;" tabindex="0" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-content="Все методы используют документ удостоверения личности. Поэтому он является обязательным! Не использовать документы с KASPI и EGOV"><span class="material-symbols-rounded text-warning">error</span></a>
                                     </div>
                                     <div>
                                         <label for="file-doc">
@@ -133,6 +132,8 @@
             checkImages();
             placeImg();
 
+            console.log(window.location.href);
+
             // Add change event listener to file inputs to trigger the checkImages function
             $('#file-img, #file-doc').on('change', checkImages);
         })  
@@ -151,12 +152,24 @@
             promise.then(faceMatchDetectionResult => {
                 spinnerSelector.hide();
                 if (faceMatchDetectionResult.status == 'success') {
-                    alert("all good");
+                    $.ambiance({
+                        type: "success",
+                        message: "Валидация прошла успешно! Вы будете перенаправлены автоматически...",
+                        timeout: 3
+                    });
                 } else {
                     if (faceMatchDetectionResult.errorType == 'no-face') {
-                        alert('На одном или обоих изображениях лица не обнаружены');
+                        $.ambiance({
+                            type: "error",
+                            message: "На одном или обоих изображениях лица не обнаружены",
+                            timeout: 3
+                        });
                     } else if (faceMatchDetectionResult.errorType == 'no-dist') {
-                        alerT('Фотография не соответствует фото из УД');
+                        $.ambiance({
+                            type: "error",
+                            message: "Фотография не соответствует фото из УД",
+                            timeout: 3
+                        });
                     }
                 }
             });
@@ -258,6 +271,5 @@
             }
         }
     </script>
-
 </body>
 </html>

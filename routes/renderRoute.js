@@ -1,4 +1,5 @@
 const express = require('express');
+const Company = require("../models/company-model");
 const router = express.Router();
 
 router.use((req, res, next) => {
@@ -26,13 +27,17 @@ router.get("/doc-verify", (req, res) => {
 })
 
 router.get('/admin', (req, res) => {
-    res.render('admin/chatbot', {pageName: 'chatbot', role: "admin"});
+    res.render('admin/chatbot', {pageName: 'admin/chatbot', role: "admin"});
 })
 
 router.get('/admin/verification', (req, res) => {
-    res.render('admin/verification', {pageName: 'chatbot', role: "admin"});
+    res.render('admin/verification', {pageName: 'admin/verification', role: "admin"});
 });
 
-
+router.get('/:id/doc-verify', async (req,res) => {
+    const companyId = req.params.id
+    const company = await Company.findById(companyId)
+    res.render('doc-verify', {pageName: 'doc-verify', company})
+})
 
 module.exports = router

@@ -1,25 +1,21 @@
 <% if (pageName.startsWith('admin')) { %>
-    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px; height: 100vh;">
-        <a href="/admin/users" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px; height: 100vh; position: fixed;">
+        <a href="/admin/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
             <span class="fs-4">Меню</span>
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="/admin/users" class="nav-link text-white hstack gap-3 <%= pageName == 'admin-users' ? 'active' : '' %>">
-                    <span class="material-symbols-rounded">person</span>Пользователи
+                <a href="/admin/" class="nav-link text-white hstack gap-3 <%= pageName == 'admin-users' ? 'active' : '' %>">
+                    <span class="material-symbols-rounded">person</span>Чат Бот
                 </a>
             </li>
             <li>
-                <a href="/admin/products" class="nav-link text-white hstack gap-3 <%= pageName == 'admin-products' ? 'active' : '' %>">
-                    <span class="material-symbols-rounded">inventory_2</span>Товары
+                <a href="/admin/verification" class="nav-link text-white hstack gap-3 <%= pageName == 'admin-products' ? 'active' : '' %>">
+                    <span class="material-symbols-rounded">inventory_2</span>Верификация ID
                 </a>
             </li>
-            <li>
-                <a href="/admin/categories" class="nav-link text-white hstack gap-3 <%= pageName == 'admin-categories' ? 'active' : '' %>">
-                    <span class="material-symbols-rounded">category</span>Категории
-                </a>
-            </li>
+           
         </ul>
         <hr>
         <a class="hstack gap-2 text-decoration-none text-white" href="/auth/login">
