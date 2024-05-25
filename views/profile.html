@@ -72,7 +72,7 @@
                                 <button class="btn btn-success" onclick="showAddProductModal()">Разместить товар</button>
                             </div>
                             <div class="profile__product mt-3">
-                                <div class="product__element mb-3 hstack gap-3">
+                                <div class="product__element mb-3 hstack gap-3" onclick="redirectToPage()">
                                     <div class="product__img-container">
                                         <img src="https://placehold.co/500x260/gray/white" alt="">
                                     </div>
@@ -159,11 +159,11 @@
                         <form enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="title" class="form-label">Заголовок</label>
-                                <input type="text" class="form-control" id="title" name="title">
+                                <input type="text" class="form-control form-control-custom" id="title" name="title">
                             </div>
                             <div class="mb-3">
                                 <label for="description" class="form-label">Описание</label>
-                                <textarea type="text" class="form-control" id="description"
+                                <textarea type="text" class="form-control form-control-custom" id="description"
                                     name="description"></textarea>
                             </div>
                             <div class="mb-4 w-75">
@@ -180,7 +180,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Категория</label>
-                                <select id="category" class="form-select" name="category"></select>
+                                <select id="category" class="form-select form-control-custom" name="category"></select>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-primary" onclick="addProduct()">Добавить</button>
@@ -193,8 +193,9 @@
         </div>
     </main>
     
-    <script src="/public/vendor/jquery-sortablejs/jquery-sortable.js"></script>
     <script src="/public/vendor/sortablejs-make/Sortable.min.js"></script>
+    <script src="/public/vendor/jquery-sortablejs/jquery-sortable.js"></script>
+    
     <script src="/public/js/sortableImage.js"></script>
     <script>
         const sortableImageUploader = new SortableImageUploader('#file-container', '#file', 10);
@@ -205,6 +206,10 @@
 
         function showAddProductModal() {
             $("#add-product-modal").modal("show");
+        }
+
+        function redirectToPage() {
+            location.href = '/product';
         }
     </script>
 </body>
