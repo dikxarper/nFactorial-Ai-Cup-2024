@@ -82,6 +82,12 @@
                                     </div>
                                     <div class="product__price text-main">5000 тнг.</div>
                                 </div>
+                                <div class="product__settings">
+                                    <div class="product__settings__element product__edit-btn mb-3" onclick="showEditProductModal()">
+                                        <span class="material-symbols-rounded">stylus</span>
+                                    </div>
+                                    <div class="product__settings__element product__delete-btn" onclick="showDeleteProductModal()"><span class="material-symbols-rounded">delete</span></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -101,17 +107,11 @@
                             <div id="form-error"></div>
                             <div class="mb-3 hstack gap-3">
                                 <div id="avatar-src">
-                                    <img class="p-2 border border-secondary rounded-3" src="" alt="Avatar">
+                                    <img class="p-2 border border-secondary rounded-circle" src="https://placehold.co/100x100/gray/white" alt="Avatar" width="100">
                                 </div>
-                                <div>
-                                    <div class="avatar-button-group">
-                                        <button type="button" id="btn-avatar-edit" class="btn btn-success" onclick="updateAvatar()">Обновить</button>
-                                        <button type="button" id="btn-avatar-delete" class="btn btn-danger" onclick="showDeleteAvatarModal()">Удалить</button>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-2 mt-3">
-                                        <input type="file" class="form-control form-control-custom" id="avatar-edit" name="avatar-edit" min="0" accept="image/*">
-                                        <span id="btn-avatar-new-delete" style="cursor: pointer;" class="material-symbols-rounded">delete</span>
-                                    </div>
+                                <div class="d-flex align-items-center gap-2 mt-3">
+                                    <input type="file" class="form-control form-control-custom" id="avatar-edit" name="avatar-edit" min="0" accept="image/*">
+                                    <span id="btn-avatar-new-delete" style="cursor: pointer;" class="material-symbols-rounded">delete</span>
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -152,7 +152,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Размещение продукта</h5>
+                        <h5 class="modal-title">Размещение товара</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -191,6 +191,65 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade crud-modal" id="edit-product-modal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Изменение товара</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="title-edit" class="form-label">Заголовок</label>
+                                <input type="text" class="form-control form-control-custom" id="title-edit" name="title-edit">
+                            </div>
+                            <div class="mb-3">
+                                <label for="description-edit" class="form-label">Описание</label>
+                                <textarea type="text" class="form-control form-control-custom" id="description-edit" name="description-edit"></textarea>
+                            </div>
+                            <div class="mb-4 w-75">
+                                <p>Фотографии</p>
+                                <div class="form-text mb-3 fst-italic">Чтобы изменить порядок изображений,
+                                    перетаскивайте</div>
+                                <div class="form-text mb-3 fst-italic">* Первое по порядку изображение будет
+                                    обложкой
+                                </div>
+                                <div class="file-container mb-4 d-flex justify-content-between flex-wrap row-gap-4"
+                                    id="file-container-edit">
+                                </div>
+                                <input type="file" class="form-control" id="file-edit" name="file-edit" accept="image/png, image/jpg, image/jpeg, image/webp" multiple formenctype="multipart/form-data" style="display: none;">
+                            </div>
+                            <!-- <div class="mb-3">
+                                <label class="form-label">Категория</label>
+                                <select id="category-edit" class="form-select form-control-custom" name="category-edit"></select>
+                            </div> -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" onclick="addProduct()">Изменить</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade crud-modal" id="delete-product-modal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Удаление товара</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">Вы точно хотите удалить товар?</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" onclick="deleteProduct()">Удалить</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     
     <script src="/public/vendor/sortablejs-make/Sortable.min.js"></script>
@@ -199,6 +258,7 @@
     <script src="/public/js/sortableImage.js"></script>
     <script>
         const sortableImageUploader = new SortableImageUploader('#file-container', '#file', 10);
+        const sortableImageUploaderEdit = new SortableImageUploader('#file-container-edit', '#file-edit', 10);
 
         function showEditUserModal() {
             $("#edit-user-modal").modal("show");
@@ -206,6 +266,14 @@
 
         function showAddProductModal() {
             $("#add-product-modal").modal("show");
+        }
+
+        function showEditProductModal() {
+            $("#edit-product-modal").modal("show");
+        }
+
+        function showDeleteProductModal() {
+            $("#delete-product-modal").modal("show");
         }
 
         function redirectToPage() {
