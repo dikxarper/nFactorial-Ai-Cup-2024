@@ -26,7 +26,7 @@
                                 <div class="hstack gap-2">
                                     <span class="material-symbols-rounded">stars</span>Статус:
                                 </div>
-                                <div class="profile__email text-main">Пользователь</div>
+                                <div class="profile__email text-main">Пользователь/Продавец</div>
                             </div>
                             <div class="mt-4 hstack gap-3 profile__info__element">
                                 <div class="hstack gap-2">
@@ -58,12 +58,32 @@
                     </div>
 
                     <div class="profile__right">
-                        <h3>Ваши товары</h3>
-                        <div class="hstack gap-3 my-3">
-                            <span class="material-symbols-rounded">ad_off</span>
-                            <span>Вы не можете размещать товары! Для этого вам нужно <i class="fw-bold">подтвердить личность</i> для обретения статуса <span class="text-primary">"Продавца"</span>.</span>
+                        <div id="profile-user">
+                            <h3>Ваши товары</h3>
+                            <div class="hstack gap-3 my-3">
+                                <span class="material-symbols-rounded">ad_off</span>
+                                <span>Вы не можете размещать товары! Для этого вам нужно <i class="fw-bold">подтвердить личность</i> для обретения статуса <span class="text-primary">"Продавца"</span>.</span>
+                            </div>
+                            <a class="btn btn-primary" href="#">Подтвердить личность</a>
                         </div>
-                        <a class="btn btn-primary" href="#">Подтвердить личность</a>
+                        <div class="mt-5" id="profile-seller">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h3>Ваши товары</h3>
+                                <button class="btn btn-success">Разместить товар</button>
+                            </div>
+                            <div class="profile__product mt-3">
+                                <div class="product__element mb-3 hstack gap-3">
+                                    <div class="product__img-container">
+                                        <img src="https://placehold.co/500x260/gray/white" alt="">
+                                    </div>
+                                    <div class="product__content">
+                                        <div class="product__title">Lorem ipsum dolor sit amet.</div>
+                                        <div class="product__description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati deleniti facere architecto debitis, laboriosam sequi aspernatur reiciendis quisquam pariatur adipisci!</div>
+                                    </div>
+                                    <div class="product__price text-main">5000 тнг.</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
