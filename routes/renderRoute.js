@@ -15,7 +15,11 @@ router.get('/product', (req, res) => {
 })
 
 router.get('/profile', (req, res) => {
-    res.render('profile', {pageName: 'profile'});
+    res.render('profile/profile', {pageName: 'profile'});
+})
+
+router.get('/profile-confirm', (req, res) => {
+    res.render('profile/profile-confirm', {pageName: 'profile'});
 })
 
 router.get('/auth/login', (req, res) => {

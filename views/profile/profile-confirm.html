@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passport Validation | Selhoz</title>
+    <link rel="stylesheet" href="/public/css/profile.css">
+</head>
+<body>
+    <main>
+        <div class="passport" style="display: none;" id="passport">
+            <div class="container">
+                <div class="passport-inner">
+                    <div class="prev d-flex align-items-center gap-5 mb-5">
+                        <a class="d-flex align-items-center text-decoration-none text-dark" onclick="history.back()" style="cursor: pointer;">
+                            <span class="material-symbols-rounded">arrow_back_ios</span>
+                            <span>Назад</span>
+                        </a>
+                    </div>
+                    <div class="passport-body">
+
+                        <div class="row">
+                            <div class="col mb-5">
+                                <h4>Загрузите фото с вашим лицом</h4>
+                                <input type="file" name="faceImage" id="face-image">
+                            </div>
+                            <div class="col">
+                                <img id="output-face-image" src="" alt="" style="display: none">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <h4>Загрузите фото вашего документа Удостоверения Личности</h4>
+                                <input type="file" name="passportImage" id="passport-image">
+                            </div>
+                            <div class="col">
+                                <img id="output-passport-image" src="" alt="" style="display: none">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="passport-footer mt-5">
+                        <div class="hstack gap-3">
+                            <div id="compare-btn-spinner" class="spinner-border text-success" role="status" style="display: none;">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <button id="compare-btn" class="btn btn-success" onclick="compareFaces()">Запросить статус пользователя</button>
+                        </div>
+                        <div class="alert alert-success w-50 mt-3" role="alert" style="display: none;">
+                            Фото соответствует фото на УД. Ждите, вы будете автоматический перенесены на страницу личного кабинета...
+                        </div>
+                        <div class="alert alert-danger w-50 mt-3" role="alert" style="display: none;">
+                            Личность не подтверждена. Проверьте фотографии на совместимость
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="/public/vendor/axios/axios.min.js"></script>
+    <script src="/public/vendor/faceapi/face-api.js"></script>
+    <script>
+        $(() => {
+            loading(1);
+            $("#passport").show();
+            loading(0);
+        })
+
+        const faceImageUpload = document.getElementById('face-image')
+        const passportImageUpload = document.getElementById('passport-image')
+        const faceImageDisplay = document.getElementById('output-face-image')
+        const passportImageDisplay = document.getElementById('output-passport-image')
+        const successAlert = document.querySelector('.alert-success')
+        const failureAlert = document.querySelector('.alert-danger')
+        
+        var faceDescriptor, passportDescriptor;
+    
+        async function compareFaces() {
+            await Promise.all([
+                faceapi.nets.ssdMobilenetv1.loadFromUri('/public/pyscripts/models/js'),
+                faceapi.nets.faceLandmark68Net.loadFromUri('/public/pyscripts/models/js'),
+                faceapi.nets.faceRecognitionNet.loadFromUri('/public/pyscripts/models/js')
+            ]);
+    
+            handleImageUpload('face');
+            handleImageUpload('passport');
+        }
+    
+        function handleImageUpload(type) {
+            const imgUpload = type === 'face' ? faceImageUpload : passportImageUpload;
+            const imgDisplay = type === 'face' ? faceImageDisplay : passportImageDisplay;
+    
+            const file = imgUpload.files[0];
+            imgDisplay.src = URL.createObjectURL(file);
+            
+            $("#compare-btn-spinner").show();
+            $("#compare-btn").addClass('disabled');
+    
+            faceapi.detectSingleFace(imgDisplay).withFaceLandmarks().withFaceDescriptor()
+                .then(detection => {
+                    console.log(`${type} image Face detection result:`, detection)
+    
+                    if (type === 'face') {
+                        faceDescriptor = detection.descriptor;
+                    } else {
+                        passportDescriptor = detection.descriptor;
+                    }
+    
+                    if (faceDescriptor && passportDescriptor) {
+                        compare();
+                    }
+                })
+                .catch(error => {
+                    failureAlert.style.display = 'block';
+                    $("#compare-btn-spinner").hide();
+                    $("#compare-btn").removeClass('disabled');
+                });
+        }
+    
+        function compare(){
+            const distance = faceapi.euclideanDistance(faceDescriptor, passportDescriptor);
+            console.log('Euclidean distance between face descriptors:', distance)
+    
+            if (distance < 0.6) {
+                successAlert.style.display = 'block';
+                failureAlert.style.display = 'none';
+                console.log('Лица совпадают: фотография соответствует паспорту.')
+
+                let id = localStorage.getItem('userId');
+                alert("Процесс идет");
+                setTimeout(() => {
+                    location.href = `/profile/${localStorage.getItem('userId')}`
+                }, 3000);
+            } else {
+                successAlert.style.display = 'none';
+                failureAlert.style.display = 'block';
+                console.log('Лица не совпадают: фотография не соответствует паспорту.')
+            }
+            $("#compare-btn-spinner").hide();
+            $("#compare-btn").removeClass('disabled');
+        }
+    </script>
+    
+</body>
+</html>

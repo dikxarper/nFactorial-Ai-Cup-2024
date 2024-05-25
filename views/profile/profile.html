@@ -1,0 +1,216 @@
+<head>
+    <link rel="stylesheet" href="/public/css/profile.css">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <div class="profile">
+            <div class="container">
+                <div class="profile__inner">
+                    <div class="profile__left">
+                        <div class="profile__header hstack gap-4">
+                            <div class="profile__title">Профиль</div>
+                            <div class="profile__edit-btn hstack gap-2" onclick="showEditUserModal()">
+                                (<span class="material-symbols-rounded">stylus</span>
+                                <span class="text-decoration-underline">Изменить</span>)
+                            </div>
+                        </div>
+                        <div class="profile__info">
+                            <div class="hstack gap-3">
+                                <div class="profile__img-container">
+                                    <img src="https://placehold.co/100x100/gray/white" alt="Profile Img">
+                                </div>
+                                <div class="profile__fullname">Dias Merekeyev</div>
+                            </div>
+                            <div class="mt-4 hstack gap-3 profile__info__element">
+                                <div class="hstack gap-2">
+                                    <span class="material-symbols-rounded">stars</span>Статус:
+                                </div>
+                                <div class="profile__email text-main">Пользователь/Продавец</div>
+                            </div>
+                            <div class="mt-4 hstack gap-3 profile__info__element">
+                                <div class="hstack gap-2">
+                                    <span class="material-symbols-rounded">mail</span>Почта:
+                                </div>
+                                <div class="profile__email">diasmerekeev1@gmail.com</div>
+                            </div>
+                            <div class="mt-4 hstack gap-3 profile__info__element">
+                                <div class="hstack gap-2">
+                                    <span class="material-symbols-rounded">call</span>Номер:
+                                </div>
+                                <div class="profile__email">+7 747 956 3002</div>
+                            </div>
+                            <div class="mt-4 hstack gap-3 profile__info__element">
+                                <div class="hstack gap-2">
+                                    <span class="material-symbols-rounded">location_city</span>Город:
+                                </div>
+                                <div class="profile__email">Астана</div>
+                            </div>
+                            <div class="mt-4 hstack gap-3 profile__info__element">
+                                <div class="hstack gap-2">
+                                    <span class="material-symbols-rounded">home</span>Адрес:
+                                </div>
+                                <div class="profile__email">Туркестан 50</div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="profile__right">
+                        <div id="profile-user">
+                            <h3>Ваши товары</h3>
+                            <div class="hstack gap-3 my-3">
+                                <span class="material-symbols-rounded">ad_off</span>
+                                <span>Вы не можете размещать товары! Для этого вам нужно <i class="fw-bold">подтвердить личность</i> для обретения статуса <span class="text-primary">"Продавца"</span>.</span>
+                            </div>
+                            <a class="btn btn-primary" href="/profile-confirm">Подтвердить личность</a>
+                        </div>
+                        <div class="mt-5" id="profile-seller">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h3>Ваши товары</h3>
+                                <button class="btn btn-success" onclick="showAddProductModal()">Разместить товар</button>
+                            </div>
+                            <div class="profile__product mt-3">
+                                <div class="product__element mb-3 hstack gap-3" onclick="redirectToPage()">
+                                    <div class="product__img-container">
+                                        <img src="https://placehold.co/500x260/gray/white" alt="">
+                                    </div>
+                                    <div class="product__content">
+                                        <div class="product__title">Lorem ipsum dolor sit amet.</div>
+                                        <div class="product__description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati deleniti facere architecto debitis, laboriosam sequi aspernatur reiciendis quisquam pariatur adipisci!</div>
+                                    </div>
+                                    <div class="product__price text-main">5000 тнг.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade crud-modal" id="edit-user-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Изменение данных</h5>
+                    </div>
+                    <form>
+                        <div class="modal-body">
+                            <div id="form-error"></div>
+                            <div class="mb-3 hstack gap-3">
+                                <div id="avatar-src">
+                                    <img class="p-2 border border-secondary rounded-3" src="" alt="Avatar">
+                                </div>
+                                <div>
+                                    <div class="avatar-button-group">
+                                        <button type="button" id="btn-avatar-edit" class="btn btn-success" onclick="updateAvatar()">Обновить</button>
+                                        <button type="button" id="btn-avatar-delete" class="btn btn-danger" onclick="showDeleteAvatarModal()">Удалить</button>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2 mt-3">
+                                        <input type="file" class="form-control form-control-custom" id="avatar-edit" name="avatar-edit" min="0" accept="image/*">
+                                        <span id="btn-avatar-new-delete" style="cursor: pointer;" class="material-symbols-rounded">delete</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="firstname" class="form-label">Имя</label>
+                                <input type="text" class="form-control form-control-custom" id="firstname-edit" name="firstname">
+                            </div>
+                            <div class="mb-3">
+                                <label for="lastname" class="form-label">Фамилия</label>
+                                <input type="text" class="form-control form-control-custom" id="lastname-edit" name="lastname">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Почта</label>
+                                <input type="email" class="form-control form-control-custom" id="email-edit" name="email">
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Номер телефона</label>
+                                <input type="text" class="form-control form-control-custom" id="phone-edit" name="phone" placeholder="+7 777 777 77 77" max="9">
+                            </div>
+                            <div class="mb-3">
+                                <label for="city" class="form-label">Город</label>
+                                <input type="text" class="form-control form-control-custom" id="city" name="city">
+                            </div>
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Адрес</label>
+                                <input type="text" class="form-control form-control-custom" id="address" name="address">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" onclick="editUser()">Изменить</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade crud-modal" id="add-product-modal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Размещение продукта</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Заголовок</label>
+                                <input type="text" class="form-control form-control-custom" id="title" name="title">
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Описание</label>
+                                <textarea type="text" class="form-control form-control-custom" id="description"
+                                    name="description"></textarea>
+                            </div>
+                            <div class="mb-4 w-75">
+                                <p>Фотографии</p>
+                                <div class="form-text mb-3 fst-italic">Чтобы изменить порядок изображений,
+                                    перетаскивайте</div>
+                                <div class="form-text mb-3 fst-italic">* Первое по порядку изображение будет
+                                    обложкой
+                                </div>
+                                <div class="file-container mb-4 d-flex justify-content-between flex-wrap row-gap-4"
+                                    id="file-container">
+                                </div>
+                                <input type="file" class="form-control" id="file" name="file" accept="image/png, image/jpg, image/jpeg, image/webp" multiple formenctype="multipart/form-data" style="display: none;">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Категория</label>
+                                <select id="category" class="form-select form-control-custom" name="category"></select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" onclick="addProduct()">Добавить</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script src="/public/vendor/sortablejs-make/Sortable.min.js"></script>
+    <script src="/public/vendor/jquery-sortablejs/jquery-sortable.js"></script>
+    
+    <script src="/public/js/sortableImage.js"></script>
+    <script>
+        const sortableImageUploader = new SortableImageUploader('#file-container', '#file', 10);
+
+        function showEditUserModal() {
+            $("#edit-user-modal").modal("show");
+        }
+
+        function showAddProductModal() {
+            $("#add-product-modal").modal("show");
+        }
+
+        function redirectToPage() {
+            location.href = '/product';
+        }
+    </script>
+</body>
+</html>

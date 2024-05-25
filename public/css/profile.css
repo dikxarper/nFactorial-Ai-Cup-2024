@@ -52,12 +52,12 @@
 }
 
 .profile__fullname {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 600;
 }
 
 .profile__info__element {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
 }
 
 .profile__info__element div:last-child{
