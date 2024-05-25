@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser')
 const path = require('path')
 const expressLayouts = require('express-ejs-layouts')
 require("dotenv").config({path: "config/.env"})
-const index = require('./routes/renderRoute')
 
 app.set('views', path.join(__dirname, 'views'))
 app.engine('html', require('ejs').renderFile)
@@ -20,7 +19,15 @@ app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({extended: false}))
 
+const index = require('./routes/renderRoute')
+const userRoute = require('./routes/userRoute')
+const authRoute = require('./routes/authRoute')
+const adminRoute = require('./routes/adminRoute')
+
 app.use('/', index)
+app.use('/api/user', userRoute)
+app.use('/api/auth', authRoute)
+app.use('/api/admin', adminRoute)
 
 app.use((req, res, next) => {
     res.status(404).render('errors/error-404')
