@@ -1,22 +1,15 @@
 const mongoose = require('mongoose')
 
 const company = new mongoose.Schema({
-    name: {type: String, required: true},
-    location: [{
-        city: {type: String},
-        address: {type: String}
-    }],
-    phone: {type: Number},
-    email: {type: String},
-    description: {type: String},
-    isApproved: {type:Boolean, default:false},
-    rating: {type: String},
-    products: [
+    password: {type: String, required: true},
+    email: {type: String, required: true},
+    url: {type: String, required: true},
+    isApproved: {type: Boolean, default: false},
+    sources: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Product',
-        }
-    ]
+            ref: 'Source'
+        }]
 }, {timestamps: true})
 
 const Company = mongoose.model('Company', company)
