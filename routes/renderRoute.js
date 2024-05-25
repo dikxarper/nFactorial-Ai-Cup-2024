@@ -17,10 +17,6 @@ router.get('/profile', (req, res) => {
     res.render('profile/profile', {pageName: 'profile', role: "user"});
 })
 
-router.get('/profile-confirm', (req, res) => {
-    res.render('profile/profile-confirm', {pageName: 'profile', role: "user"});
-})
-
 router.get('/auth/login', (req, res) => {
     res.render('auth/login', {pageName: 'login', role: "user"});
 })

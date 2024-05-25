@@ -64,7 +64,7 @@
                                 <span class="material-symbols-rounded">ad_off</span>
                                 <span>Вы не можете размещать товары! Для этого вам нужно <i class="fw-bold">подтвердить личность</i> для обретения статуса <span class="text-primary">"Продавца"</span>.</span>
                             </div>
-                            <a class="btn btn-primary" href="/profile-confirm">Подтвердить личность</a>
+                            <button type="button" class="btn btn-primary" onclick="showVerifyUserModal()">Подтвердить личность</button>
                         </div>
                         <div class="mt-5" id="profile-seller">
                             <div class="d-flex justify-content-between align-items-center">
@@ -250,15 +250,74 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade crud-modal" id="verify-user-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Подтверждение личности</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="passport" id="passport">
+                            <div class="container">
+                                <div class="passport-inner">
+                                    <div class="passport-body">
+                                        <div class="mb-5">
+                                            <h4>Загрузите фото с вашим лицом</h4>
+                                            <input type="file" name="faceImage" id="face-image">
+                                            <img id="output-face-image" src="" alt="" style="display: none">
+                                        </div>
+                                        <div class="mb-4">
+                                            <h4>Загрузите фото вашего документа Удостоверения Личности</h4>
+                                            <input type="file" name="passportImage" id="passport-image">
+                                            <img id="output-passport-image" src="" alt="" style="display: none">
+                                        </div>
+                                    </div>
+                
+                
+                                    <div class="passport-footer">
+                                        <div class="alert alert-success mt-3" role="alert" style="display: none;">
+                                            Фото соответствует фото на УД. Ждите, вы будете автоматический перенесены на страницу личного кабинета...
+                                        </div>
+                                        <div class="alert alert-danger mt-3" role="alert" style="display: none;">
+                                            Личность не подтверждена. Проверьте фотографии на совместимость
+                                        </div>
+                
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="hstack gap-3">
+                            <div id="compare-btn-spinner" class="spinner-border text-success" role="status" style="display: none;">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <button type="button" id="compare-btn" class="btn btn-success" onclick="compareFaces()">Запросить статус пользователя</button>
+                        </div>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     
     <script src="/public/vendor/sortablejs-make/Sortable.min.js"></script>
     <script src="/public/vendor/jquery-sortablejs/jquery-sortable.js"></script>
-    
     <script src="/public/js/sortableImage.js"></script>
+
+    <script src="/public/vendor/axios/axios.min.js"></script>
+    <script src="/public/vendor/faceapi/face-api.js"></script>
+    <script src="/public/js/validationAI.js"></script>
+
     <script>
         const sortableImageUploader = new SortableImageUploader('#file-container', '#file', 10);
         const sortableImageUploaderEdit = new SortableImageUploader('#file-container-edit', '#file-edit', 10);
+
+        function showVerifyUserModal() {
+            $("#verify-user-modal").modal("show");
+        }
 
         function showEditUserModal() {
             $("#edit-user-modal").modal("show");
