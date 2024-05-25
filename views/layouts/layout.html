@@ -5,11 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%- include('../components/head.html') %>
 </head>
-    <%- include('../partials/header.html') %>
 
-    <%- body %>
-
-    <%- include('../partials/footer.html') %>
+    <% if (role == 'user') { %>
+        <%- include('../partials/header.html') %>
+        <%- body %>
+        <%- include('../partials/footer.html') %>
+    <% } else { %>
+    <div class="d-flex gap-5">
+        <%- include('../partials/header.html') %>
+        <%- body %>
+    </div>
+    <% } %>
 
     <script src="/public/vendor/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
 </html>
