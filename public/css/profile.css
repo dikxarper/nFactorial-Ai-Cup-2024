@@ -112,3 +112,81 @@
     font-size: 1.5rem;
     font-weight: 600;
 }
+
+/* Add Product Modal */
+.file-container .img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    border-radius: .5rem;
+    position: relative;
+}
+
+.file-container .uploaded-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+.file-container .template-image {
+    width: 50px;
+}
+
+.img-container .add-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    background: none !important;
+    border-radius: .5rem ;
+}
+
+.img-container .delete-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    background: none !important;
+    border-radius: .5rem ;
+}
+
+.img-container .first-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    width: 50px;
+}
+
+.img-container .delete-btn span{
+    color: var(--bs-success);
+}
+
+.img-container:hover .delete-btn {
+    background-color: #fff !important;
+    border-color: var(--bs-success) !important;
+    display: block;
+    /* box-shadow: 2px 2px 5px 0px; */
+}
+
+.add-btn {
+    border: none;
+}
+
+.add-btn span{
+    font-size: 4rem;
+}
+
+.img-container:has(.template-image):hover .template-image {
+    display: none;
+}
+
+.img-container:has(.template-image):hover .add-btn {
+    display: block;
+}
