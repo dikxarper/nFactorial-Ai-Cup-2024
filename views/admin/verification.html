@@ -1,24 +1,126 @@
 <head>
     <title>Main page</title>
     <link rel="stylesheet" href="/public/css/style.css">
+    <style>
+        .copy__btn:hover {
+            cursor: pointer;
+            color: var(--bs-secondary-color);
+        }
+    </style>
 </head>
 <body>
-    <main>
-        <div class="product">
-            <div class="container d-flex gap-5 w-50 align-items-center">
-               <h1>Система для интеграции чат бота и верификации личности</h1>
-               <img src="/public/img/bot_internal.png" alt="">
-            </div>
-        </div>
+    <main style="margin-left: 350px;">
+        <div class="product mt-5">
+            <div class="container">
+               <h1>Интеграция верификации личности</h1>
 
-        <div class="container" style="text-align: center;">
-            <button class="btn btn-primary">Начать сейчас</button>
+            <div class="my-4" style="display: block;">
+                <label for="verification_url" class="form-label">Вставьте ссылку страницы в случае <span class="text-success fw-bold">успешной</span>  верификации пользователем</label>
+                <input type="text" class="form-control form-control-custom" id="verification_url"  name="verification_url" placeholder="Ссылка...">
+            </div>
+               <div class="my-4" style="display: block;">
+                    <label for="redirect_url" class="form-label">Вставьте ссылку страницы в случае <span class="text-danger fw-bold">провальной</span> верификации пользователем</label>
+                    <input type="text" class="form-control form-control-custom" id="redirect_url"  name="redirect_url" placeholder="Ссылка...">
+                </div>
+                <a id="url-btn" class="btn btn-primary disabled" onclick="getUrl()">Получить ссылку на инструмент</a>
+                <div class="url__result mt-4  border border-secondary rounded-3 py-4 px-5 bg-secondary text-light" id="url-result" style="position: relative; width: 800px; display: none">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit consectetur libero cupiditate dolorem officiis hic rem beatae, adipisci impedit! Excepturi hic eligendi maxime ipsam illo, laboriosam quos ad fuga numquam.</p>
+                    <div class="copy__btn" style="position: absolute; top: 1.2rem; right: 1rem;" id="copy-btn">
+                        <span class="material-symbols-rounded" style="font-size: 1.5rem;">content_copy</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
     <script>
-        function redirectToPage() {
-            location.href = '/product';
+        $(() => {
+            copyBtn();
+            checkEmptyInputOnChange();
+            checkEmptyInput();
+            removeWarning();
+        })
+
+        function checkEmptyInputOnChange() {
+            $("#redirect_url").on('input', function() {
+                checkEmptyInput();
+            })
+            $("#verification_url").on('input', function() {
+                checkEmptyInput();
+            })
+        }
+
+        function copyBtn() {
+            $("#copy-btn").on('click', function() {
+                navigator.clipboard.writeText(($("#url-result p").text()))
+            })
+        }
+
+        function checkEmptyInput() {
+            const redirect_url = $('#redirect_url').val().trim();
+            const verification_url = $("#verification_url").val().trim();
+
+            if (redirect_url && verification_url) {
+                $("#url-btn").toggleClass("disabled", false);
+            } else {
+                $("#url-result").hide();
+                $("#url-btn").toggleClass("disabled", true);
+            }
+        }
+
+        function getUrl() {
+            $("#url-valid").remove();
+            let isValid = true;
+            const redirect_url = $('#redirect_url').val().trim();
+            const verification_url = $("#verification_url").val().trim();
+
+            const urlRegex = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+
+            
+            if (!urlRegex.test(redirect_url)) {
+                $("#redirect_url").addClass("border-danger");
+                $("#redirect_url").after("<div id='url-valid-redirect' class='text-danger'>Введите настоящую ссылку!</div>");
+                isValid = false;
+            }
+            if (!urlRegex.test(verification_url)) {
+                $("#verification_url").addClass("border-danger");
+                $("#verification_url").after("<div id='url-valid-verification' class='text-danger'>Введите настоящую ссылку!</div>");
+                isValid = false;
+            }
+
+            if (isValid) {
+                updateVerificationUrl();
+                $("#url-result p").text(`https://sch-eng.live/<%=company._id %>/doc-verify?redirect_url=${redirect_url}`);
+                $("#url-result").show();
+            }
+        }
+
+        function removeWarning() {
+            $("#redirect_url").on('click', function() {
+                $("#redirect_url").removeClass("border-danger");
+                $("#url-valid-redirect").remove();
+            })
+            $("#verification_url").on('click', function() {
+                $("#verification_url").removeClass("border-danger");
+                $("#url-valid-verification").remove();
+            })
+        }
+        
+        function updateVerificationUrl() {
+            const verification_url = $("#verification_url").val().trim();
+
+            $.ajax({
+                url: "/api/company/verificationUrl/update",
+                method: "post",
+                data: {
+                    verificationRedirect: verification_url
+                },
+                success: function(res) {
+                    console.log('success')
+                }, error: function(err) {
+                    console.log(err);
+                }
+            })
         }
     </script>
 </body>

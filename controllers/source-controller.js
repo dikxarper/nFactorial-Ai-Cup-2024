@@ -23,7 +23,7 @@ class SourceController {
                 'url': 'https://c1416.webapi.ai/docs',
                 'headers': {
                     'Content-Type': 'application/json',
-                    'Cookie': 'Cookie_1=value; admin_id=1; sk=a97825101d5e7e5a6208f3bc898ad5490e49018d'
+                    'Cookie': 'Cookie_1=value; admin_id=1; sk=67c425dd7f86a2062ab3331f6d8b226c6fd7db3c'
                 },
                 body: JSON.stringify({
                     "action": "saveDocument",
@@ -101,14 +101,29 @@ class SourceController {
             if (!source) res.status(404).json({ message: 'Source not found' })
             if (source.company_id.toString() === companyId) {
                 await Source.findByIdAndDelete(sourceId)
+                var webapi_id = source.webapi_id;
                 await Company.findByIdAndUpdate(companyId, { $pull: { sources: sourceId } }, { new: true })
-                return res.status(200).json({ message: 'Source successfully deleted' })
+                var options = {
+                    'method': 'GET',
+                    'url': 'https://c1416.webapi.ai/docs?action=deleteDocument&doc_id=' + webapi_id,
+                    'headers': {
+                        'Content-Type': 'application/json',
+                        'Cookie': 'Cookie_1=value; admin_id=1; sk=67c425dd7f86a2062ab3331f6d8b226c6fd7db3c'
+                    }
+                };
+    
+                request(options, async function (error, response) {
+                    console.log(response)
+                    return res.status(200).json({ message: 'Source successfully deleted' })
+                })
+                
             }
-            res.status(403).json({ message: 'You are not allowed to access this page' })
         } catch (err) {
             res.status(500).json({ message: 'Internal server error' })
         }
     }
+
+  
 }
 
 module.exports = new SourceController()
