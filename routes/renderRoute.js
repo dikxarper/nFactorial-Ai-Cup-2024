@@ -1,5 +1,7 @@
 const express = require('express');
 const Company = require("../models/company-model");
+const {verifyCompanyToken} = require("../middlewares/verify");
+const controller = require('../controllers/renderController')
 const router = express.Router();
 
 router.use((req, res, next) => {
@@ -30,14 +32,17 @@ router.get('/admin', (req, res) => {
     res.render('admin/chatbot', {pageName: 'admin/chatbot', role: "admin"});
 })
 
-router.get('/admin/verification', (req, res) => {
-    res.render('admin/verification', {pageName: 'admin/verification', role: "admin"});
+router.get('/admin/verification', verifyCompanyToken(process.env.COMPANY_TOKEN_SECRET), async (req, res) => {
+    const companyId = req.user._id;
+    const company = await Company.findById(companyId)
+    res.render('admin/verification', {pageName: 'admin/verification', role: "admin", company: company});
 });
 
-router.get('/:id/doc-verify', async (req,res) => {
+router.get('/:id/doc-verify', verifyCompanyToken(process.env.COMPANY_TOKEN_SECRET), async (req,res) => {
     const companyId = req.params.id
     const company = await Company.findById(companyId)
-    res.render('doc-verify', {pageName: 'doc-verify', company})
+    res.render('doc-verify', {pageName: 'doc-verify', company, role: "admin"})
 })
+
 
 module.exports = router

@@ -6,7 +6,7 @@
     <%- include('../components/head.html') %>
 </head>
 
-    <% if (role == 'user') { %>
+    <% if (!pageName.startsWith('admin')) { %>
         <%- include('../partials/header.html') %>
         <%- body %>
         <%- include('../partials/footer.html') %>

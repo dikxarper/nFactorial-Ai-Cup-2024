@@ -15,7 +15,7 @@ class AuthController {
             if (!validationPassword) return res.status(400).json({message: "Incorrect password"})
 
             const token = generateCompanyToken(company)
-            res.cookie('company', token, {maxAge: process.env.TOKEN_EXPIRE * 500})
+            res.cookie('company', token, {maxAge: process.env.TOKEN_EXPIRE * 50000})
 
             res.status(200).json({message: "Company logged in successfully"})
         } catch (err) {

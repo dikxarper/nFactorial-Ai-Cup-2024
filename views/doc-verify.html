@@ -13,18 +13,14 @@
             width: 5rem;
             background-color: rgb(51, 164, 51);
         }
+
+        .block__content {
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
     <main>
-        <div class="product__category mb-5">
-            <div class="container">
-                <a class="hstack text-decoration-none text-dark" onclick="history.back()" style="cursor: pointer;">
-                    <span class="material-symbols-rounded">arrow_back_ios</span>Вернуться назад
-                </a>
-            </div>
-        </div>
-
         <div class="intro my-5">
             <div class="container">
                 <div class="intro__body">
@@ -102,7 +98,7 @@
                                             <span class="fs-3 fw-semibold font-monospace">BIO</span>
                                         </div>
                                         <div class="swag__element__title fw-medium">Biometric check-up</div>
-                                        <div class="swag__element__description fw-light fst-italic">Проверка соответствию с лицом владельца</div>
+                                        <div class="swag__element__description fw-light fst-italic">Проверка соответствия с лицом владельца</div>
                                     </div>
                                     <div class="inner-right hstack gap-4">
                                         <span class="material-symbols-rounded text-warning">person_book</span>
@@ -132,11 +128,26 @@
             checkImages();
             placeImg();
 
-            console.log(window.location.href);
-
             // Add change event listener to file inputs to trigger the checkImages function
             $('#file-img, #file-doc').on('change', checkImages);
         })  
+
+        function renderVerificationToken() {
+            $.ajax({
+                url: '/api/company/<%= company._id %>/doc-verify/getVerificationToken',
+                method: "post",
+                success: function(res) {
+                    console.log(res);
+                }, error: function(err) {
+                    console.log(err);
+                }
+            })
+        }
+
+        function getRedurectUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('redirect_url');
+        }
 
         async function submitMethods() {
             const spinnerSelector = $("#swagger-spinner");
@@ -157,20 +168,33 @@
                         message: "Валидация прошла успешно! Вы будете перенаправлены автоматически...",
                         timeout: 3
                     });
+                    setTimeout(() => {
+                        window.location.href = "<%= company.verificationRedirect %>";
+                    }, 3000);
                 } else {
-                    if (faceMatchDetectionResult.errorType == 'no-face') {
-                        $.ambiance({
-                            type: "error",
-                            message: "На одном или обоих изображениях лица не обнаружены",
-                            timeout: 3
-                        });
-                    } else if (faceMatchDetectionResult.errorType == 'no-dist') {
-                        $.ambiance({
-                            type: "error",
-                            message: "Фотография не соответствует фото из УД",
-                            timeout: 3
-                        });
-                    }
+                    $('body').addClass('block__content');
+                    $.ambiance({
+                        type: "error",
+                        message: "Фотография не соответствует фото из УД! Вы будете перенаправлены в предыдущую страницу автоматически...",
+                        timeout: 3,
+                    });
+                    setTimeout(() => {
+                        window.location.href = getRedurectUrl();
+                    }, 3000);
+                    
+                    // if (faceMatchDetectionResult.errorType == 'no-face') {
+                    //     $.ambiance({
+                    //         type: "error",
+                    //         message: "На одном или обоих изображениях лица не обнаружены",
+                    //         timeout: 3
+                    //     });
+                    // } else if (faceMatchDetectionResult.errorType == 'no-dist') {
+                    //     $.ambiance({
+                    //         type: "error",
+                    //         message: "Фотография не соответствует фото из УД",
+                    //         timeout: 3
+                    //     });
+                    // }
                 }
             });
         }
@@ -271,5 +295,6 @@
             }
         }
     </script>
+
 </body>
 </html>

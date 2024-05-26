@@ -1,34 +1,45 @@
 <% if (pageName.startsWith('admin')) { %>
-    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px; height: 100vh; position: fixed;">
-        <a href="/admin/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <span class="fs-4">Меню</span>
-        </a>
-        <hr>
-        <ul class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item">
-                <a href="/admin/" class="nav-link text-white hstack gap-3 <%= pageName == 'admin-users' ? 'active' : '' %>">
-                    <span class="material-symbols-rounded">person</span>Чат Бот
-                </a>
-            </li>
-            <li>
-                <a href="/admin/verification" class="nav-link text-white hstack gap-3 <%= pageName == 'admin-products' ? 'active' : '' %>">
-                    <span class="material-symbols-rounded">inventory_2</span>Верификация ID
-                </a>
-            </li>
-           
-        </ul>
-        <hr>
-        <a class="hstack gap-2 text-decoration-none text-white" href="/auth/login">
-            <span class="material-symbols-rounded">logout</span>Выйти
-        </a>
-    </div>
-    <% } else { %>
-    <header class="px-3 py-2">
-        <div class="hstack gap-5">
-            <a class="header__logo" href="/">
-                <img src="/public/img/logo.png" alt="">
+<div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px; height: 100vh; position: fixed;">
+    <a href="/admin/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <span class="fs-4">Меню</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+            <a href="/admin/" class="nav-link text-white hstack gap-3 <%= pageName == 'admin-users' ? 'active' : '' %>">
+                <span class="material-symbols-rounded">person</span>Чат Бот
             </a>
-            <div class="fw-medium fs-5"><%= pageName == 'doc-verify' ? 'Инструмент сопоставления фотографии с документом удостоверения личности' : 'Система' %></div>
+        </li>
+        <li>
+            <a href="/admin/verification" class="nav-link text-white hstack gap-3 <%= pageName == 'admin-products' ? 'active' : '' %>">
+                <span class="material-symbols-rounded">inventory_2</span>Верификация ID
+            </a>
+        </li>
+       
+    </ul>
+    <hr>
+    <a class="hstack gap-2 text-decoration-none text-white" href="/auth/login">
+        <span class="material-symbols-rounded">logout</span>Выйти
+    </a>
+</div>
+<% } else if (pageName == 'doc-verify') { %>
+<header class="px-3 py-2">
+    <div class="hstack gap-5">
+        <div class="fw-medium fs-5">Инструмент сопоставления фотографии с документом удостоверения личности</div>
+    </div>
+</header>
+<% } else { %>
+    <header class="px-3 py-2">
+        <div class="hstack justify-content-between">
+            <div class="hstack gap-5">
+                <a class="header__logo" href="/">
+                    <img src="/public/img/logo.png" alt="">
+                </a>
+                <div class="fw-medium fs-5">Инструмент по добавлению функциональных AI методов</div>
+            </div>
+            <a class="btn btn-outline-dark hstack gap-2" href="/auth/login">
+                <span class="material-symbols-rounded">login</span>Войти
+            </a>
         </div>
     </header>
-    <% } %>
+<% } %>

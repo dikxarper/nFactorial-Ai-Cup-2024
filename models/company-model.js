@@ -11,7 +11,9 @@ const company = new mongoose.Schema({
             ref: 'Source'
         }],
     verificationRedirect: {type: String},
-    telegramToken: {type: String}
+    verificationToken: {type: String},
+    telegramToken: {type: String},
+    botInstructions: {type: String}
 }, {timestamps: true})
 
 const Company = mongoose.model('Company', company)

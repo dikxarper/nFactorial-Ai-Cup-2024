@@ -11,6 +11,58 @@ body {
     font-weight: 400;
 }
 
+/* Ambiance */
+#ambiance {
+    color: #fff;
+    text-align: center;
+    border-radius: 10px;
+    font-family: InterReg;
+    transition: background-color 0.5s, transform 0.5s;
+    cursor: default;
+    margin: 3% auto 1%;
+    padding: 4% 0 1% 0;
+    width: 80%;
+}
+
+#ambiance:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+}
+
+#ambiance.success {
+    background-color: #04DEAA;
+
+}
+
+#ambiance.error {
+    background-color: #e74c3c;
+
+}
+
+#ambiance.info {
+    background-color: #2C9AFF;
+
+}
+
+#ambiance.warning {
+    background-color: #f39c12;
+
+}
+
+#ambiance.invalid-email {
+    background-color: #c0392b;
+
+}
+
+#ambiance.too-many-requests {
+    background-color: #e67e22;
+
+}
+
+.ambiance {
+    font-family: InterReg;
+}
+
 main {
     margin-bottom: 2rem;
 }

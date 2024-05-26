@@ -22,10 +22,12 @@ app.use(bodyParser.urlencoded({extended: false}))
 const index = require('./routes/renderRoute')
 const authRoute = require('./routes/authRoute')
 const sourceRoute = require('./routes/sourceRoute')
+const companyRoute = require('./routes/companyRoute')
 
 app.use('/', index)
 app.use('/api/auth', authRoute)
 app.use('/api/source', sourceRoute)
+app.use('/api/company', companyRoute)
 
 app.use((req, res, next) => {
     res.status(404).render('errors/error-404')

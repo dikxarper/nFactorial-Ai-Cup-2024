@@ -1,22 +1,26 @@
 <head>
-    <title>Войти</title>
+    <title>Логин</title>
     <link rel="stylesheet" href="/public/css/auth.css">
+    <%- include('../components/head.html') %>
 </head>
+
 <body>
     <main>
         <div class="login" id="login">
             <div id="login-error"></div>
             <h1 class="mb-4 text-center fs-3">Вход</h1>
-            <form>
+            <div id="ambiance" class="w-50"></div>
+            <form onsubmit="signin(); return false;">
                 <div class="mb-3">
                     <label for="email" class="form-label">Почта</label>
-                    <input type="text" class="form-control form-control-custom" id="email" aria-describedby="emailHelp" name="email">
+                    <input type="text" class="form-control form-control-custom" id="email" aria-describedby="emailHelp"
+                        name="email">
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Пароль</label>
                     <input type="password" class="form-control form-control-custom" id="password" name="password">
                 </div>
-                <button type="submit" class="btn btn-primary mt-2" id="login-btn">Отправить</button>
+                <button type="submit" class="btn btn-primary mt-2" id="login_btn">Отправить</button>
             </form>
             <div class="my-3">
                 <span>У вас нет аккаунта?</span>
@@ -25,19 +29,51 @@
         </div>
     </main>
 
-     <!-- Modal -->
-     <div class="modal fade" id="register-confirm">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Пользователя с такой почтой не существует. Вы хотите зарегистрироваться?</h1>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                    <button type="button" class="btn btn-primary" onclick="signup()">Подтвердить</button>
-                  </div>
-            </div>
-        </div>
-    </div>
+    <script>
+        function signin() {
+            loading(2, el = '#login_btn');
+            let email = $('.login #email').val().trim().toLowerCase();
+            let password = $('.login #password').val().trim();
+            let ambianceElement = $('.login #ambiance');
+
+            if (!email || !password) {
+                loading(20, el = '#login_btn');
+                ambianceElement.html('<p>Заполните все поля</p>').addClass('show warning');
+                setTimeout(function () {
+                    ambianceElement.removeClass('show warning').html('');
+                }, 3000);
+                return;
+            }
+
+            if (!isValidEmail(email)) {
+                ambianceElement.html('<p>Неверная почта</p>').addClass('invalid-email show');
+                setTimeout(function () {
+                    loading(20, el = '#login_btn');
+                    ambianceElement.removeClass('show invalid-email').html('');
+                }, 2000);
+                return;
+            }
+
+            $.ajax({
+                method: 'post',
+                url: '/api/auth/login',
+                dataType: 'json',
+                data: {
+                    email: email,
+                    password: password
+                }, success: function (res) {
+                    window.location.href = '/admin';
+                }, error: function (err) {
+                    loading(20, el = '#login_btn');
+                    console.log(err);
+                }
+            });
+        }
+
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+    </script>
 </body>
+
 </html>
