@@ -103,11 +103,13 @@ const DB = require('./db')
 const http = require('http')
 DB()
     .then(() => {
-        http.createServer(function (req, res) {
-            res.writeHead(200, {'Content-Type': 'text/plain'});
-            res.write('Hello World!');
-            res.end();
-          }).listen(process.env.PORT);
+        const server = http.createServer(app);
+
+        const PORT = process.env.PORT || 3000;
+
+        server.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+        });
     })
     .catch(err => {
         console.error('Failed to connect to database:', err.message)
