@@ -100,12 +100,14 @@ bot.on('message', async (msg) => {
 })
 
 const DB = require('./db')
-
+const http = require('http')
 DB()
     .then(() => {
-        app.listen(process.env.PORT, () => {
-            console.log(`Server is running on http://localhost:${process.env.PORT}`)
-        })
+        http.createServer(function (req, res) {
+            res.writeHead(200, {'Content-Type': 'text/plain'});
+            res.write('Hello World!');
+            res.end();
+          }).listen(process.env.PORT);
     })
     .catch(err => {
         console.error('Failed to connect to database:', err.message)
